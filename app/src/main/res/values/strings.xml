@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">MuniDenuncias App</string>
+
+    <string name="hint_email">Correo</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_password_confirm">Confirma contraseña</string>
+    <string name="hint_name">Nombre completo</string>
+    <string name="hint_usuario">Usuario</string>
+
+    <string name="btn_login">INGRESAR</string>
+    <string name="btn_register">REGISTRAR</string>
+
+    <string name="tienda_nombre">Nombre de la tienda</string>
+    <string name="tienda_puesto">Puesto</string>
+    <string name="tienda_telefono">Teléfono</string>
+    <string name="tienda_latitud">latitud</string>
+    <string name="tienda_altitud">altitud</string>
+
+
+    <string name="btn_link_to_login_vendedor">Eres vendedor? ingresa aquí.</string>
+    <string name="btn_link_to_register">No eres miembro? regístrate ahora.</string>
+    <string name="btn_link_to_login">Ya estas registrado? Ingresa.</string>
+    <string name="welcome">Bienvenido</string>
+    <string name="btn_logout">Salir</string>
+    <string name="name">Nombre</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Setting</string>
+
+    <string name="nav_tienda">Tienda</string>
+    <string name="nav_productos">Productos</string>
+    <string name="nav_mapa">Mapa</string>
+    <string name="nav_explorar">Explorar</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_ubicar_tienda">Map</string>
+    <string name="title_activity_home">HomeActivity</string>
+</resources>
