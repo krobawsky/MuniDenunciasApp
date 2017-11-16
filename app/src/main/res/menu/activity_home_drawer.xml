@@ -3,9 +3,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Nueva denuncia" />
+            android:id="@+id/nav_list"
+            android:icon="@drawable/ic_dashboard"
+            android:title="Lista de denuncias" />
+        <item
+            android:id="@+id/nav_new"
+            android:icon="@drawable/ic_create"
+            android:title="Registra Denuncia" />
 
     </group>
 
@@ -13,7 +17,7 @@
         <menu>
             <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_keyboard_return"
                 android:title="Salir" />
         </menu>
     </item>

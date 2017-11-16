@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,12 +24,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ricardo.munidenunciasapp.R;
+import com.ricardo.munidenunciasapp.adapter.DenunciasAdapter;
 import com.ricardo.munidenunciasapp.models.Denuncia;
 import com.ricardo.munidenunciasapp.service.ApiService;
 import com.ricardo.munidenunciasapp.service.ApiServiceGenerator;
 
 import java.util.List;
 
+import layout.List2Fragment;
+import layout.RegisterFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,23 +53,12 @@ public class HomeActivity extends AppCompatActivity
 
     private static final String TAG = HomeActivity.class.getSimpleName();
 
-    private RecyclerView productosList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -75,65 +69,27 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //con esto agregamos datos en el header del menu-------------------------------
+        View hView = navigationView.getHeaderView(0);
+        txtName = (TextView) hView.findViewById(R.id.name);
+
         // init SharedPreferences
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // get id from SharedPreferences
         id = sharedPreferences.getString("id", null);
         Log.d(TAG, "usuario_id: " + id);
+        String user_nombre = sharedPreferences.getString("user_nombre", null);
+        Log.d(TAG, "user_nombre: " + user_nombre);
 
-        productosList = (RecyclerView) findViewById(R.id.recyclerview);
-        productosList.setLayoutManager(new LinearLayoutManager(this));
+        txtName.setText(user_nombre);
 
-        //productosList.setAdapter(new ProductosAdapter());
-
-        initialize();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        List2Fragment fragment = new List2Fragment();
+        transaction.replace(R.id.content, fragment);
+        transaction.commit();
 
     }
-
-    private void initialize() {
-
-        ApiService service = ApiServiceGenerator.createService(ApiService.class);
-
-        Call<List<Denuncia>> call = service.getDenuncias();
-
-        call.enqueue(new Callback<List<Denuncia>>() {
-            @Override
-            public void onResponse(Call<List<Denuncia>> call, Response<List<Denuncia>> response) {
-                try {
-
-                    int statusCode = response.code();
-                    Log.d(TAG, "HTTP status code: " + statusCode);
-
-                    if (response.isSuccessful()) {
-
-                        List<Denuncia> productos = response.body();
-                        Log.d(TAG, "productos: " + productos);
-
-
-                    } else {
-                        Log.e(TAG, "onError: " + response.errorBody().string());
-                        throw new Exception("Error en el servicio");
-                    }
-
-                } catch (Throwable t) {
-                    try {
-                        Log.e(TAG, "onThrowable: " + t.toString(), t);
-                        Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                    }catch (Throwable x){}
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Denuncia>> call, Throwable t) {
-                Log.e(TAG, "onFailure: " + t.toString());
-                Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-
-        });
-    }
-
-
 
     @Override
     public void onBackPressed() {
@@ -150,10 +106,19 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_list) {
+            List2Fragment fragment = new List2Fragment();
+            transaction.replace(R.id.content, fragment);
+            transaction.commit();
 
-        }  else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_new) {
+            RegisterFragment fragment = new RegisterFragment();
+            transaction.replace(R.id.content, fragment);
+            transaction.commit();
+
+        } else if (id == R.id.nav_send) {
             logoutUser();
         }
 
@@ -168,7 +133,7 @@ public class HomeActivity extends AppCompatActivity
         SharedPreferences.Editor editor = sharedPreferences.edit();
         boolean success = editor.putBoolean("islogged", false).commit();
         boolean success2 = editor
-                .putString("tienda_id", "")
+                .putString("user_nombre", "")
                 .commit();
 
         // Launching the login activity

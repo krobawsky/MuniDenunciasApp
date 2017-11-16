@@ -139,10 +139,10 @@ public class LoginActivity extends AppCompatActivity {
 
                                 // Save to SharedPreferences
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                boolean success = editor
-                                        .putString("id", String.valueOf(id))
-                                        .putBoolean("islogged", true)
-                                        .commit();
+                                editor.putString("user_id", String.valueOf(id));
+                                editor.putString("user_nombre", nombres);
+                                editor.putBoolean("islogged", true);
+                                editor.commit();
 
                                 // Go to Dashboard
                                 goDashboard();

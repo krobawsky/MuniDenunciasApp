@@ -10,6 +10,7 @@ public class Denuncia {
     private String descripcion;
     private String latitud;
     private String longitud;
+    private String ubicacion;
     private String imagen;
 
     public Denuncia() {}
@@ -77,6 +78,14 @@ public class Denuncia {
         return longitud;
     }
 
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
     public void setLongitud(String longitud) {
         this.longitud = longitud;
     }
@@ -99,6 +108,7 @@ public class Denuncia {
                 ", descripcion='" + descripcion + '\'' +
                 ", latitud='" + latitud + '\'' +
                 ", longitud='" + longitud + '\'' +
+                ", ubicacion='" + ubicacion + '\'' +
                 ", imagen='" + imagen + '\'' +
                 '}';
     }
