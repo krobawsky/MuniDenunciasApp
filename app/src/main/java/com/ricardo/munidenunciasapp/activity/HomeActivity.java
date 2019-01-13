@@ -44,9 +44,6 @@ public class HomeActivity extends AppCompatActivity
     private TextView txtEmail;
 
     private String id;
-    private String nombre;
-    private String email;
-    private String dni;
 
     // SharedPreferences
     private SharedPreferences sharedPreferences;
